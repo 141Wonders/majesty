@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<style>
+
+    .container{
+        background: white;
+        max-width: 1000px;
+        margin-top: 100px;
+        margin-left: 250px;
+        border: 3px solid #000000;
+    }
+
+</style>
+{% endblock head%}
+
+{% block content %}
+<div class="container">
+
+{% if form %}
+<form method='POST'>
+    {{ form.csrf_token }}
+
+    <div>
+        <label for='Password'>{{ form.password.label }}</label>
+        {{ form.password }}
+        {% if form.password.errors %}
+            <div class='alert alert-danger'>
+                {% for error in form.password.errors %}
+                     <span class='mr-1'>{{error}}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+   
+    <button class='btn btn-dark my-3' type='submit'>Continue</button>
+
+</form>
+{% endif %}
+
+	{% for list in object_list %}
+	<p>{{ list.id }}) {{ list.first_name }} {{list.last_name }} ||| {{ list.email }} ||| {{ list.phone_number }} ||| {{ list.timestamp }}</p>
+	{% endfor %}
+
+</div>
+
+{% endblock content %}
